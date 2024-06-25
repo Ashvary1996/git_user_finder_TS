@@ -8,23 +8,66 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const userName = document.querySelector("#user");
-const form = document.querySelector("#form");
-const main_container = document.querySelector(".main-container");
-const myCustomFetcher = (url, options) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield fetch(url, options);
-    const data = yield response.json();
-    //   console.log(data);
-    return data;
-});
-const showData = (user) => {
+const getUsernameInput = document.querySelector("#user");
+const formSubmit = document.querySelector("#form");
+const mainContainer = document.querySelector(".main_container");
+function fetchJSON(url) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch(url);
+        if (!response.ok)
+            throw new Error(`Network response was not ok - status: ${response.status}`);
+        return response.json();
+    });
+}
+const showUserCard = ({ avatar_url, login, html_url }) => {
+    const cardTemplate = `
+    <div class="card">
+      <img src="${avatar_url}" alt="${login}" />
+      <hr />
+      <div class="card-footer">
+        <img src="${avatar_url}" alt="${login}" />
+        <a href="${html_url}" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  `;
+    mainContainer.insertAdjacentHTML("beforeend", cardTemplate);
 };
-const fetchUser = (url) => {
-    myCustomFetcher(url, {}).then((users) => {
-        for (const user of users) {
-            showData(user);
-            console.log(user.id, user);
+function fetchUserData(username) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const userInfo = yield fetchJSON(`https://api.github.com/users/${username}`);
+            mainContainer.innerHTML = "";
+            showUserCard(userInfo);
+        }
+        catch (error) {
+            console.error("Error fetching user data:", error);
         }
     });
-};
-fetchUser("https://api.github.com/users");
+}
+function fetchRandomUsers() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const randomUserList = yield fetchJSON("https://api.github.com/search/users?q=type:user&per_page=12");
+            mainContainer.innerHTML = "";
+            randomUserList.items.forEach(showUserCard);
+        }
+        catch (error) {
+            console.error("Error fetching random users:", error);
+        }
+    });
+}
+formSubmit.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const searchTerm = getUsernameInput.value.trim().toLowerCase();
+    if (searchTerm)
+        fetchUserData(searchTerm);
+});
+document.addEventListener("DOMContentLoaded", fetchRandomUsers);
+getUsernameInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        const searchTerm = getUsernameInput.value.trim().toLowerCase();
+        if (searchTerm)
+            fetchUserData(searchTerm);
+    }
+});

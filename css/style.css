@@ -13,6 +13,7 @@ html {
 
 body {
   background-color: #0d192b;
+  color: #fff;
 }
 
 a {
@@ -24,12 +25,11 @@ a {
 section {
   width: 80%;
   margin: 0 auto;
-  /* margin: 10rem; */
 }
 
 .search-input {
   width: 100%;
-  margin: 5rem auto 0 auto;
+  margin: 5rem auto 0;
   text-align: center;
 }
 
@@ -45,52 +45,53 @@ input {
 button {
   padding: 1rem 2.4rem;
   font-size: 1.6rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #0073e6;
+  color: white;
+  cursor: pointer;
 }
 
 .main_container {
   display: flex;
   flex-wrap: wrap;
-  gap: 8rem;
+  gap: 2rem;
   padding: 6rem 0;
   justify-content: center;
 }
 
 .card {
-  min-width: 20rem;
-  min-height: 20rem;
+  width: 20rem;
   background-color: #14253d;
   padding: 1rem;
   border-radius: 1rem;
-  transition: all 0.3s linear;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  &:hover {
-    transform: translateY(-2rem);
-    box-shadow: rgba(224, 222, 233, 0.15) 0px 48px 100px 0px;
-  }
+.card:hover {
+  transform: translateY(-1rem);
+  box-shadow: rgba(224, 222, 233, 0.15) 0px 48px 100px 0px;
 }
 
 img {
   max-width: 100%;
-  width: 22rem;
   height: auto;
   border-radius: 1rem;
 }
 
-.username {
-  padding-top: 1rem;
-  color: #fff;
-}
-
 hr {
-  height: 0.01rem;
-  border: 0.1rem solid white;
+  height: 0.1rem;
+  border: none;
+  background-color: white;
+  margin: 1rem 0;
 }
 
 .card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 3rem 0 0 0;
+  margin-top: 1rem;
 }
 
 .card-footer img {
@@ -98,11 +99,4 @@ hr {
   height: 2.5rem;
   border-radius: 50%;
   border: 0.2rem solid white;
-}
-
-.empty-msg {
-  width: 100%;
-  text-align: center;
-  font-size: 2rem;
-  color: #fff;
 }
