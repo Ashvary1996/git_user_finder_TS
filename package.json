@@ -5,14 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:html": "xcopy index.html build\\index.html /Y",
-    "build:css": "xcopy /E css build\\css",
-    "build:js": "tsc && xcopy /E dist build",
+    "build:html": "xcopy index.html build\\index.html /Y",  
+    "build:css": "xcopy index.css build /Y",  
+    "build:js": "tsc && xcopy /E dist build", 
     "build": "npm run build:html && npm run build:css && npm run build:js",
     "start": "lite-server",
-    "deploy": "gh-pages -d build" 
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build"  
   },
-  "author": "",
+  "author": "ASHVARY GIDIAN",
   "license": "ISC",
   "devDependencies": {
     "typescript": "^5.5.2"
