@@ -1,0 +1,20 @@
+{
+  "name": "ts_project",
+  "version": "1.0.0",
+  "description": "A simple web application to search for GitHub users and display random profiles on the home page.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:html": "xcopy index.html build\\index.html /Y",
+    "build:css": "xcopy /E css build\\css",
+    "build:js": "tsc && xcopy /E dist build",
+    "build": "npm run build:html && npm run build:css && npm run build:js",
+    "start": "lite-server",
+    "deploy": "gh-pages -d build" 
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.5.2"
+  }
+}
